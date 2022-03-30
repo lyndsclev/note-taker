@@ -60,6 +60,22 @@ app.post('/api/notes', (req, res) => {
     }
 });
 
+// delete notes method 
+app.delete('/api/notes/:id', (req, res) => {
+    console.log(req.params.id);
+
+    const { id } = req.params; 
+    const newNotes = notes.filter(note => note.id != id);
+    res.json(newNotes);
+    console.log(newNotes);
+
+    // re-write file - re-writes, but doesn't re-get... do i need to re-start the server? 
+    fs.writeFileSync(
+        path.join(__dirname, './db/db.json'), 
+        JSON.stringify({ notes: newNotes }, null, 2)
+    );
+});
+
 // get notes.html route 
 app.get('/notes', (req, res) => {
     res.sendFile(path.join(__dirname, './public/notes.html'));
