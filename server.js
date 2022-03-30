@@ -12,6 +12,9 @@ const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json()); 
 
+// middleware to make files available
+app.use(express.static('public'));
+
 // create note
 function createNote(body, notesArray) {
     const note = body; 
@@ -54,6 +57,16 @@ app.post('/api/notes', (req, res) => {
         const note = createNote(req.body, notes);
         res.json(note);
     }
+});
+
+// get notes.html
+app.get('/notes', (req, res) => {
+    res.sendFile(path.join(__dirname, './public/notes.html'));
+});
+
+// get index.html
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, './public/index.html'));
 });
 
 app.listen(PORT, () => {
