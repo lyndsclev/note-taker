@@ -4,6 +4,8 @@ const path = require('path');
 const express = require('express'); 
 const req = require('express/lib/request');
 const { notes } = require('./db/db'); 
+const { nanoid } = require('nanoid');
+
 
 const PORT = process.env.PORT || 3001; 
 const app = express(); 
@@ -47,7 +49,7 @@ app.get('/api/notes', (req, res) => {
 app.post('/api/notes', (req, res) => {
 
     // set id based on array index
-    req.body.id = notes.length.toString();
+    req.body.id = nanoid(5);
 
     // if data is empty, send alert
     if(!validateNote(req.body)) {
