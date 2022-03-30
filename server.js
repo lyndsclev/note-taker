@@ -6,7 +6,6 @@ const req = require('express/lib/request');
 const { notes } = require('./db/db'); 
 const { nanoid } = require('nanoid');
 
-
 const PORT = process.env.PORT || 3001; 
 const app = express(); 
 
@@ -40,15 +39,15 @@ function validateNote(note) {
     return true; 
 }; 
 
-// get notes 
+// get notes api route
 app.get('/api/notes', (req, res) => {
     res.json(notes);
 });
 
-// post notes 
+// post notes api route 
 app.post('/api/notes', (req, res) => {
 
-    // set id based on array index
+    // set unique id with nanoid
     req.body.id = nanoid(5);
 
     // if data is empty, send alert
@@ -61,12 +60,12 @@ app.post('/api/notes', (req, res) => {
     }
 });
 
-// get notes.html
+// get notes.html route 
 app.get('/notes', (req, res) => {
     res.sendFile(path.join(__dirname, './public/notes.html'));
 });
 
-// get index.html
+// get index.html route 
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, './public/index.html'));
 });
