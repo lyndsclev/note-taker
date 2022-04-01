@@ -60,7 +60,7 @@ app.post('/api/notes', (req, res) => {
     }
 });
 
-// delete notes method 
+// delete notes api route - not working properly 
 app.delete('/api/notes/:id', (req, res) => {
     console.log(req.params.id);
 
@@ -69,7 +69,7 @@ app.delete('/api/notes/:id', (req, res) => {
     res.json(newNotes);
     console.log(newNotes);
 
-    // re-write file - re-writes, but doesn't re-get... do i need to re-start the server? 
+    // re-write file 
     fs.writeFileSync(
         path.join(__dirname, './db/db.json'), 
         JSON.stringify({ notes: newNotes }, null, 2)
